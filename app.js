@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const ExpressError = require('./expressError');
 const { helpNumsArray, mean } = require('./helpers');
 
 app.get('/mean', function mean(req, res) {
@@ -10,10 +10,13 @@ app.get('/mean', function mean(req, res) {
   let numsStr = nums.split(',');
   // Make sure there's nothing wrong with the data being passed in
   let validNums = helpNumsArray(numsStr);
+  if (validNums instanceof Error) {
+    throw new ExpressError(validNums.message);
+  }
 
   let final = {
     operation: 'mean',
-    result: mean(validNums),
+    result: validNums,
   };
 
   return res.json(final);
