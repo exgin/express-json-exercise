@@ -3,9 +3,8 @@ const app = express();
 const ExpressError = require('./expressError');
 const { helpNumsArray, mean } = require('./helpers');
 
-app.get('/mean', function mean(req, res) {
+app.get('/mean', function (req, res) {
   const { nums = [] } = req.query;
-
   // Get rid of the commans
   let numsStr = nums.split(',');
   // Make sure there's nothing wrong with the data being passed in
