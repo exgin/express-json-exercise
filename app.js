@@ -16,7 +16,7 @@ app.get('/mean', function mean(req, res) {
 
   let final = {
     operation: 'mean',
-    result: validNums,
+    result: mean(validNums),
   };
 
   return res.json(final);
