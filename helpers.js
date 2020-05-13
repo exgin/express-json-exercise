@@ -12,7 +12,6 @@ function helpNumsArray(nums) {
   }
   return result;
 }
-console.log(helpNumsArray('5', '10'));
 
 // Function for finding the mean of a list of numbers
 function mean(nums) {
@@ -24,6 +23,17 @@ function mean(nums) {
 
   return value;
 }
-console.log(mean([5, 10, 22]));
 
-module.exports = { helpNumsArray, mean };
+function median(nums) {
+  // get the middle index of the array
+  let middle = Math.floor(nums.length / 2);
+  // then sort from greatest to least value
+  let sortedNums = [...nums].sort((a, b) => a - b);
+
+  // if our nums array is odd, return the middle value of our sorted array
+  // else take calculate the middle value & divide by 2
+  return nums.length % 2 !== 0 ? sortedNums[middle] : (sortedNums[middle - 1] + sortedNums[middle]) / 2;
+}
+console.log(median([1, 2, 3]));
+
+module.exports = { helpNumsArray, mean, median };
