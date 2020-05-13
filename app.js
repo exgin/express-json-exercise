@@ -4,6 +4,10 @@ const ExpressError = require('./expressError');
 const { helpNumsArray, mean, median } = require('./helpers');
 
 app.get('/mean', function (req, res) {
+  if (!req.query.nums) {
+    throw new ExpressError('You must pass in a query string of numbers, separated by a comma!', 400);
+  }
+
   const { nums = [] } = req.query;
   // Get rid of the commans
   let numsStr = nums.split(',');
@@ -22,6 +26,9 @@ app.get('/mean', function (req, res) {
 });
 
 app.get('/median', function (req, res) {
+  if (!req.query.nums) {
+    throw new ExpressError('You must pass in a query string of numbers, separated by a comma!', 400);
+  }
   const { nums = [] } = req.query;
   let numsStr = nums.split(',');
   let validNums = helpNumsArray(numsStr);
