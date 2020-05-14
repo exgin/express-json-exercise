@@ -62,6 +62,28 @@ app.get('/mode', function (req, res) {
   return res.json(final);
 });
 
+// Create a 404 error page
+app.use(function (req, res, next) {
+  const error = new ExpressError('Page Not Found 404', 404);
+  return next(error);
+});
+
+// Overall error handler
+app.use(function (error, req, res, next) {
+  // Default error is an internal 500 error
+  let status = error.status || 500;
+  let message = error.message;
+
+  let err = {
+    error: {
+      message,
+      status,
+    },
+  };
+  // set status & show the user
+  return res.status(status).json(err);
+});
+
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
