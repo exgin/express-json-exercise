@@ -37,20 +37,36 @@ function median(nums) {
 
 // ** Mode **
 // going to make 2 functions, one for counting the frequency of the numbers | another to taking the values of the most freq
-function mode(nums) {}
+function mode(nums) {
+  let obj = frequency(nums);
+
+  let count = 0;
+  let highestFreq;
+
+  for (let key in obj) {
+    if (obj[key] > count) {
+      highestFreq = key;
+      count = obj[key];
+    }
+  }
+  return highestFreq;
+}
+
+console.log(mode([5, 5, 6, 6, 12, 14]));
 
 // frequency([2, 3, 4, 5]);
 
 function frequency(nums) {
+  // reduce requires you to return something at the end of each loop. was getting werid type underfined error
   return nums.reduce(function (acc, curr) {
-    if (typeof acc[curr] === 'undefined') {
+    if (!acc[curr]) {
       acc[curr] = 1;
+      return acc;
     } else {
       acc[curr] += 1;
+      return acc;
     }
   }, {});
 }
 
-frequency([1, 2, 3]);
-
-module.exports = { helpNumsArray, mean, median };
+module.exports = { helpNumsArray, mean, median, mode, frequency };

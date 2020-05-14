@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const ExpressError = require('./expressError');
-const { helpNumsArray, mean, median } = require('./helpers');
+const { helpNumsArray, mean, median, mode } = require('./helpers');
 
 app.get('/mean', function (req, res) {
   if (!req.query.nums) {
@@ -45,11 +45,19 @@ app.get('/median', function (req, res) {
 });
 
 app.get('/mode', function (req, res) {
+  if (!req.query.nums) {
+    throw new ExpressError('You must pass in a query string of numbers, separated by a comma!', 400);
+  }
   const { nums = [] } = req.query;
+  let numsStr = nums.split(',');
+  let validNums = helpNumsArray(numsStr);
+  if (validNums instanceof Error) {
+    throw new ExpressError(validNums.message);
+  }
 
   let final = {
     operation: 'mode',
-    result: '',
+    result: mode(validNums),
   };
   return res.json(final);
 });
