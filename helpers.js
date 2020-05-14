@@ -41,8 +41,6 @@ function mode(nums) {}
 
 // frequency([2, 3, 4, 5]);
 
-let nums = [1, 2, 3, 4, 5];
-
 function frequency(nums) {
   return nums.reduce(function (acc, curr) {
     if (typeof acc[curr] === 'undefined') {
