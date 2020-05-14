@@ -34,6 +34,25 @@ function median(nums) {
   // else take calculate the middle value & divide by 2
   return nums.length % 2 !== 0 ? sortedNums[middle] : (sortedNums[middle - 1] + sortedNums[middle]) / 2;
 }
-console.log(median([1, 2, 3]));
+
+// ** Mode **
+// going to make 2 functions, one for counting the frequency of the numbers | another to taking the values of the most freq
+function mode(nums) {}
+
+// frequency([2, 3, 4, 5]);
+
+let nums = [1, 2, 3, 4, 5];
+
+function frequency(nums) {
+  return nums.reduce(function (acc, curr) {
+    if (typeof acc[curr] === 'undefined') {
+      acc[curr] = 1;
+    } else {
+      acc[curr] += 1;
+    }
+  }, {});
+}
+
+frequency([1, 2, 3]);
 
 module.exports = { helpNumsArray, mean, median };
